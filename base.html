@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" href="https://cdn.discordapp.com/attachments/1213837839008145449/1213838587867431052/KROY.jpg?ex=65f6ee47&is=65e47947&hm=053c17bdbdb69a1f53f701a3ded8ab180f34fbecb932cee33f4368cc82d172a5&" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa">
+    <style>
+		body {
+ 		   background-image: url('https://i.pinimg.com/originals/b2/5b/1e/b25b1edb800006a0c2050e57553554d0.gif');
+		    background-repeat: no-repeat;
+ 		   background-size: 100% 100%;
+ 		   height: 100vh;
+ 		   margin: 0;
+ 		   padding: 0;
+		}
+		* {
+		    cursor: url('https://media.discordapp.net/attachments/1211339274696269824/1213490813623869450/free-icon-cursor-8373711_1.png?ex=65f5aa63&is=65e33563&hm=86c2662bd320a2151ffad8efbc3a961c776a5b2e88b6e9cc391c15c7f3359e55&=&format=webp&quality=lossless&width=40&height=40'), auto;
+		}
+        #mute {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 50px;
+            height: 50px;
+            background: rgba(51, 0, 255, 0.7);
+            border-radius: 10px;
+            transition: transform .2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #mute:hover {
+            transform: scale(1.1);
+        }
+        #mute img {
+            width: 30px;
+            height: 30px;
+        }
+        #overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(to bottom, rgba(102, 53, 114, 0.7), rgba(13, 13, 13, 0.7));
+            width: 500px;
+            height: 500px;
+            border-radius: 25px;
+            padding: 50px;
+            text-align: center;
+        }
+        #avatar {
+            width: 118px;
+            height: 118px;
+            border-radius: 50%;
+        }
+        #uid {
+            display: none;
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 5px;
+            border-radius: 10px;
+            font-size: 16px;
+            width: 70px;
+            text-align: center;
+            z-index: 1;
+            transition: opacity 0.5s;
+        }
+        #nickname:hover #uid {
+            display: block;
+            opacity: 1;
+        }
+        #love {
+            color: white;
+            font-size: 24px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        #status {
+            position: absolute;
+            bottom: 120px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 268px;
+            height: 116px;
+            background: rgba(169, 78, 191, 0.7);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            color: white;
+            font-size: 24px;
+            text-align: left;
+            padding: 10px;
+        }
+        #status .text-container {
+            display: flex;
+            flex-direction: column;
+            order: 2;
+        }
+		#status .name {
+		    font-weight: bold; /* Добавлено для установки жирного шрифта */
+            order: 2;
+            margin-top: 0;
+			position: relative;
+			display: flex; /* Добавлено для выравнивания элементов в одной строке */
+            align-items: center; /* Добавлено для выравнивания элементов по вертикали */
+		}
+        #status .last-seen {
+            color: gray; /* Изменено с white на gray */
+            font-style: italic; /* Добавлено для установки курсивного шрифта */
+            font-size: 18px; /* Уменьшено с 24px до 18px */
+            order: 3;
+            margin-top: 10px;
+        }
+        #status img.avatar {
+            width: 73px;
+            height: 73px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            order: 1;
+            margin-right: 10px;
+        }
+        #status img.status {
+            position: absolute;
+            bottom: 28px;
+            right: 185px;
+            width: 60px;
+            height: 30px;
+        }
+        #status .name img.emoji {
+            margin-left: 2px; /* Добавлено для добавления пространства между ником и эмодзи */
+            width: 30px; /* Установите желаемый размер эмодзи */
+            height: 30px; /* Установите желаемый размер эмодзи */
+        }
+        #social-links {
+            display: center;
+            justify-content: space-around;
+            margin-top: 200px; /* Измените это значение для настройки вертикального положения кнопок */
+        }
+        #social-links a {
+            color: white;
+            font-size: 50px;
+            text-decoration: none;
+            transition: color 0.5s;
+            margin-bottom: 200px; /* Измените это значение для настройки вертикального положения иконок */
+            margin-left: 10px; /* Добавлено для отступа слева */
+            margin-right: 10px; /* Добавлено для отступа справа */
+        }
+        #social-links a:hover {
+            color: lightgray;
+            transition: color 0.5s;
+        }
+		.noselect {
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            -o-user-select: none;
+            user-select: none;
+        }
+        @keyframes rainbow {
+            0%{background-position:0%;}
+            100%{background-position:100%;}
+        }
+        #nickname {
+            font-size: 65px;
+            color: white;
+            margin-top: 20px;
+            position: relative;
+            z-index: 1;
+            animation: glow 2s ease-in-out infinite;
+        }
+        @keyframes glow {
+            0%, 100% {
+                text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fff;
+            }
+            50% {
+                text-shadow: 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fff, 0 0 50px #fff, 0 0 60px #fff;
+            }
+        }
+        body {
+    font-family: 'Comfortaa', sans-serif;
+}
+    </style>
+</head>
+<body>
+    <div id="mute">
+        <img id="mute-icon" src="https://media.discordapp.net/attachments/1211339274696269824/1213405698088509481/pngegg.png?ex=65f55b1e&is=65e2e61e&hm=a7bac4b8ba700bbae8d71e1fe4cceae4f8da7b00ecc05937afd51bf44178ef5a&=&format=webp&quality=lossless&width=585&height=585" alt="">
+    </div>
+    <div id="overlay">
+        <img id="avatar" src="https://cdn.discordapp.com/attachments/1213837839008145449/1213838587867431052/KROY.jpg?ex=65f6ee47&is=65e47947&hm=053c17bdbdb69a1f53f701a3ded8ab180f34fbecb932cee33f4368cc82d172a5&" alt="Avatar">
+        <div id="nickname">
+            KROY
+            <div id="uid">UID: 1</div>
+        </div>
+        <p id="love">Лучше быть последним — первым, чем первым — последним.</p>
+        <div id="status">
+            <div class="text-container">
+                <div class="name">
+                    KROY
+                    <img class="emoji" src="https://media.discordapp.net/attachments/1211339274696269824/1213485248231506021/6406718_1.png?ex=65f5a534&is=65e33034&hm=e30fe4af040e551b8b12f7fa1a59fc3efb9683c8b589146e426fbe17cc73e2d7&=&format=webp&quality=lossless&width=1024&height=1024" alt="Emoji">
+                </div>
+				<div class="last-seen">Брат, я в сети всегда</div>
+            </div>
+            <img class="avatar" src="https://cdn.discordapp.com/attachments/1213837839008145449/1213838587867431052/KROY.jpg?ex=65f6ee47&is=65e47947&hm=053c17bdbdb69a1f53f701a3ded8ab180f34fbecb932cee33f4368cc82d172a5&" alt="Avatar">
+            <img class="status" src="https://media.discordapp.net/attachments/1211339274696269824/1213477645615104040/no-molestar-Photoroom.png-Photoroom.png?ex=65f59e20&is=65e32920&hm=f74be67be803c1c6ddf6b26bb2a7c4278438779e149036343b633b532feec486&=&format=webp&quality=lossless&width=1170&height=585" alt="Status">
+        </div>
+        <div id="social-links">
+            <a href="https://discord.com/users/1101563101758885918"><i class="fab fa-discord"></i></a> <!-- Добавлена ссылка на Discord -->
+            <a href="https://t.me/kroye_1337"><i class="fab fa-telegram-plane"></i></a> <!-- Добавлена ссылка на Telegram -->
+            <a href="https://www.youtube.com/@KROY228"><i class="fab fa-youtube"></i></a> <!-- Добавлена ссылка на YouTube -->
+            <a href="https://steamcommunity.com/id/kroy_1337"><i class="fab fa-steam"></i></a> <!-- Добавлена ссылка на Steam -->
+            <a href="https://steamcommunity.com/id/kroy1337/"><i class="fab fa-steam"></i></a> <!-- Добавлена ссылка на Steam -->
+        </div>
+    </div>
+    <audio id="bgm" autoplay loop>
+        <source src="https://mp3uks.ru/mp3/files/mareux-the-perfect-girl-mp3.mp3" type="audio/mpeg">
+    </audio>
+    <script>
+        var muteButton = document.getElementById('mute');
+        var muteIcon = document.getElementById('mute-icon');
+        var bgm = document.getElementById('bgm');
+        muteButton.addEventListener('click', function (e) {
+            if (bgm.paused) {
+                bgm.play();
+                muteIcon.src = "https://media.discordapp.net/attachments/1211339274696269824/1213405813759152148/pngegg_1.png?ex=65f55b39&is=65e2e639&hm=59a834b790b14f432ccb7c04ba7dbca56e8130635cb89c0aefe41425c7707807&=&format=webp&quality=lossless&width=585&height=585";
+            } else {
+                bgm.pause();
+                muteIcon.src = "https://media.discordapp.net/attachments/1211339274696269824/1213405698088509481/pngegg.png?ex=65f55b1e&is=65e2e61e&hm=a7bac4b8ba700bbae8d71e1fe4cceae4f8da7b00ecc05937afd51bf44178ef5a&=&format=webp&quality=lossless&width=585&height=585";
+            }
+        });
+    </script>
+	<script> 
+	    console.log('%cОстановитесь!', 'color: red; font-size: 50px;');
+        console.log('%cЭто функция браузера, предназначенная для разработчиков. Если кто-то сказал вам скопировать и вставить что-то здесь, это может представлять угрозу для вашего аккаунта.', 'color: black; font-size: 20px;');
+		console.log('%cОстановитесь!', 'color: red; font-size: 50px;');
+        console.log('%cЭто функция браузера, предназначенная для разработчиков. Если кто-то сказал вам скопировать и вставить что-то здесь, это может представлять угрозу для вашего аккаунта.', 'color: black; font-size: 20px;');
+		console.log('%cОстановитесь!', 'color: red; font-size: 50px;');
+        console.log('%cЭто функция браузера, предназначенная для разработчиков. Если кто-то сказал вам скопировать и вставить что-то здесь, это может представлять угрозу для вашего аккаунта.', 'color: black; font-size: 20px;');
+		console.log('%cОстановитесь!', 'color: red; font-size: 50px;');
+        console.log('%cЭто функция браузера, предназначенная для разработчиков. Если кто-то сказал вам скопировать и вставить что-то здесь, это может представлять угрозу для вашего аккаунта.', 'color: black; font-size: 20px;');
+		console.log('%cОстановитесь!', 'color: red; font-size: 50px;');
+        console.log('%cЭто функция браузера, предназначенная для разработчиков. Если кто-то сказал вам скопировать и вставить что-то здесь, это может представлять угрозу для вашего аккаунта.', 'color: black; font-size: 20px;');
+		console.log('%cОстановитесь!', 'color: red; font-size: 50px;');
+        console.log('%cЭто функция браузера, предназначенная для разработчиков. Если кто-то сказал вам скопировать и вставить что-то здесь, это может представлять угрозу для вашего аккаунта.', 'color: black; font-size: 20px;');
+		console.log('%cОстановитесь!', 'color: red; font-size: 50px;');
+        console.log('%cЭто функция браузера, предназначенная для разработчиков. Если кто-то сказал вам скопировать и вставить что-то здесь, это может представлять угрозу для вашего аккаунта.', 'color: black; font-size: 20px;');
+		console.log('%cОстановитесь!', 'color: red; font-size: 50px;');
+        console.log('%cЭто функция браузера, предназначенная для разработчиков. Если кто-то сказал вам скопировать и вставить что-то здесь, это может представлять угрозу для вашего аккаунта.', 'color: black; font-size: 20px;');
+		console.log('%cОстановитесь!', 'color: red; font-size: 50px;');
+        console.log('%cЭто функция браузера, предназначенная для разработчиков. Если кто-то сказал вам скопировать и вставить что-то здесь, это может представлять угрозу для вашего аккаунта.', 'color: black; font-size: 20px;');
+		console.log('%cОстановитесь!', 'color: red; font-size: 50px;');
+        console.log('%cЭто функция браузера, предназначенная для разработчиков. Если кто-то сказал вам скопировать и вставить что-то здесь, это может представлять угрозу для вашего аккаунта.', 'color: black; font-size: 20px;');
+		console.log('%cОстановитесь!', 'color: red; font-size: 50px;');
+        console.log('%cЭто функция браузера, предназначенная для разработчиков. Если кто-то сказал вам скопировать и вставить что-то здесь, это может представлять угрозу для вашего аккаунта.', 'color: black; font-size: 20px;');
+		console.log('%cОстановитесь!', 'color: red; font-size: 50px;');
+        console.log('%cЭто функция браузера, предназначенная для разработчиков. Если кто-то сказал вам скопировать и вставить что-то здесь, это может представлять угрозу для вашего аккаунта.', 'color: black; font-size: 20px;');
+		console.log('%cОстановитесь!', 'color: red; font-size: 50px;');
+        console.log('%cЭто функция браузера, предназначенная для разработчиков. Если кто-то сказал вам скопировать и вставить что-то здесь, это может представлять угрозу для вашего аккаунта.', 'color: black; font-size: 20px;');
+		console.log('%cОстановитесь!', 'color: red; font-size: 50px;');
+        console.log('%cЭто функция браузера, предназначенная для разработчиков. Если кто-то сказал вам скопировать и вставить что-то здесь, это может представлять угрозу для вашего аккаунта.', 'color: black; font-size: 20px;');
+		console.log('%cОстановитесь!', 'color: red; font-size: 50px;');
+        console.log('%cЭто функция браузера, предназначенная для разработчиков. Если кто-то сказал вам скопировать и вставить что-то здесь, это может представлять угрозу для вашего аккаунта.', 'color: black; font-size: 20px;');
+		console.log('%cОстановитесь!', 'color: red; font-size: 50px;');
+        console.log('%cЭто функция браузера, предназначенная для разработчиков. Если кто-то сказал вам скопировать и вставить что-то здесь, это может представлять угрозу для вашего аккаунта.', 'color: black; font-size: 20px;');
+		document.ondragstart = test; 
+        //запрет на перетаскивание 
+        document.onselectstart = test; 
+        //запрет на выделение элементов страницы 
+        document.oncontextmenu = test; 
+        //запрет на выведение контекстного меню 
+        function test() { 
+        return false 
+        } 
+		document.onkeydown = function(e) {
+        if(e.keyCode == 123) {
+         return false;
+        }
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)){
+         return false;
+        }
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)){
+         return false;
+        }
+        if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)){
+         return false;
+        }
+    }
+    </script>
+</body>
+</html>
